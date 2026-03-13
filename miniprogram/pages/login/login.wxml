@@ -1,0 +1,50 @@
+<!-- pages/login/login.wxml -->
+<!-- 一键登录引导页（REQ-007, REQ-008） -->
+<view class="container">
+  <!-- 顶部装饰 -->
+  <view class="header">
+    <image class="logo" src="/images/banner-130.png" mode="widthFix" />
+    <text class="title">西安交通大学</text>
+    <text class="subtitle">130周年校庆专属活动</text>
+  </view>
+
+  <!-- 登录说明 -->
+  <view class="login-card">
+    <text class="login-title">一键授权登录</text>
+    <view class="benefits">
+      <view class="benefit-item">
+        <text class="benefit-icon">🎁</text>
+        <text class="benefit-text">获取专属VIP卡，享受¥10初始礼券</text>
+      </view>
+      <view class="benefit-item">
+        <text class="benefit-icon">🎰</text>
+        <text class="benefit-text">参与校庆抽奖，最高赢取¥500礼券</text>
+      </view>
+      <view class="benefit-item">
+        <text class="benefit-icon">📱</text>
+        <text class="benefit-text">仅需手机号授权，一键完成登录</text>
+      </view>
+    </view>
+
+    <!-- 手机号授权按钮（REQ-007） -->
+    <button
+      class="phone-btn"
+      open-type="getPhoneNumber"
+      bindgetphonenumber="onGetPhoneNumber"
+      disabled="{{loading}}"
+    >
+      {{loading ? '登录中...' : '一键登录'}}
+    </button>
+
+    <!-- 暂不参与（不强制登录，REQ-012） -->
+    <button
+      class="skip-btn"
+      bindtap="onSkip"
+      disabled="{{loading}}"
+    >
+      暂不参与
+    </button>
+
+    <text class="privacy-tip">授权后将获取您的手机号，用于生成专属VIP卡</text>
+  </view>
+</view>

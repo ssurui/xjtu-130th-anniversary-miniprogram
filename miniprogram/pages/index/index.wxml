@@ -1,0 +1,78 @@
+<!-- pages/index/index.wxml -->
+<!-- 首页：展示校庆图案、VIP卡、礼品信息、抽奖入口 -->
+<view class="container">
+  <!-- 校庆Banner（REQ-003） -->
+  <view class="banner-section">
+    <image
+      class="banner-image"
+      src="/images/banner-130.png"
+      mode="widthFix"
+      bindtap="onBannerTap"
+    />
+    <view class="anniversary-text">
+      <text class="year-text">130</text>
+      <text class="anniversary-label">周年校庆纪念</text>
+    </view>
+  </view>
+
+  <!-- VIP卡展示区域（REQ-004） -->
+  <view class="vip-card-section">
+    <view class="vip-card">
+      <view class="card-header">
+        <image class="card-logo" src="/images/vip-card-bg.png" mode="aspectFit" />
+        <text class="card-title">西安交通大学校庆VIP卡</text>
+      </view>
+      <view class="card-body">
+        <view class="card-number-row">
+          <text class="card-label">卡号</text>
+          <text class="card-number">{{cardNumber}}</text>
+        </view>
+        <view class="coupon-row">
+          <text class="card-label">礼券余额</text>
+          <text class="coupon-amount">¥{{couponAmount}}</text>
+        </view>
+      </view>
+      <view class="card-footer">
+        <text class="card-tip" wx:if="{{!isLoggedIn}}">登录后可参与抽奖增加礼券</text>
+        <text class="card-tip" wx:elif="{{hasLottery}}">已参与抽奖，礼券已到账</text>
+        <text class="card-tip" wx:else>点击下方按钮参与抽奖</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 礼品展示区域（REQ-005） -->
+  <view class="gift-section card">
+    <text class="section-title">校庆专属礼品</text>
+    <view class="gift-content">
+      <image
+        class="gift-image"
+        src="{{giftType === 'gift1' ? '/images/gift1.png' : '/images/gift2.png'}}"
+        mode="aspectFit"
+      />
+      <view class="gift-info">
+        <text class="gift-name">{{giftType === 'gift1' ? '校庆纪念品一：文化衫' : '校庆纪念品二：帆布包'}}</text>
+        <text class="gift-desc">西安交通大学130周年校庆专属纪念品</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 抽奖入口（REQ-006, REQ-012） -->
+  <view class="lottery-section">
+    <view class="lottery-banner">
+      <text class="lottery-title">校庆专属抽奖</text>
+      <text class="lottery-subtitle">最高可获得¥500礼券</text>
+    </view>
+    <button
+      class="lottery-btn {{hasLottery ? 'btn-disabled' : 'btn-primary'}}"
+      bindtap="onLotteryTap"
+      disabled="{{loading}}"
+    >
+      {{isLoggedIn ? (hasLottery ? '已参与抽奖' : '立即抽奖') : '登录参与抽奖'}}
+    </button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-mask" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+  </view>
+</view>

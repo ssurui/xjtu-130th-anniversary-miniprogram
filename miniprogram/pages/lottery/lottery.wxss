@@ -1,0 +1,243 @@
+/* pages/lottery/lottery.wxss */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a0000 0%, #4a0000 30%, #8B0000 60%, #c0392b 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 30rpx 60rpx;
+}
+
+/* 头部 */
+.lottery-header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.header-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 0 2rpx 15rpx rgba(255, 215, 0, 0.5);
+  margin-bottom: 10rpx;
+}
+
+.header-subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 215, 0, 0.7);
+  letter-spacing: 6rpx;
+}
+
+/* 转盘容器 */
+.wheel-container {
+  margin: 30rpx 0;
+}
+
+.wheel-outer {
+  position: relative;
+  width: 560rpx;
+  height: 560rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 转盘 */
+.wheel {
+  width: 520rpx;
+  height: 520rpx;
+  border-radius: 50%;
+  background: conic-gradient(
+    #FFD700 0deg 60deg,
+    #FF6B35 60deg 120deg,
+    #E74C3C 120deg 180deg,
+    #9B59B6 180deg 240deg,
+    #3498DB 240deg 300deg,
+    #2ECC71 300deg 360deg
+  );
+  position: relative;
+  box-shadow: 0 0 40rpx rgba(255, 215, 0, 0.6), 0 0 80rpx rgba(255, 100, 0, 0.4);
+  border: 8rpx solid #FFD700;
+}
+
+/* 转盘旋转动画 */
+.wheel-spin {
+  animation: wheelSpin 3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes wheelSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(1440deg); }
+}
+
+/* 扇形区域标签 */
+.wheel-sector {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 20rpx;
+  transform-origin: bottom right;
+  left: 0;
+  top: 0;
+}
+
+.wheel-sector text {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.s1 { transform: rotate(30deg); }
+.s2 { transform: rotate(90deg); }
+.s3 { transform: rotate(150deg); }
+.s4 { transform: rotate(210deg); }
+.s5 { transform: rotate(270deg); }
+.s6 { transform: rotate(330deg); }
+
+/* 转盘中心 */
+.wheel-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160rpx;
+  height: 160rpx;
+  background: radial-gradient(circle, #fff 0%, #f5f0e8 100%);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.3);
+  border: 4rpx solid #FFD700;
+  z-index: 10;
+}
+
+.wheel-center-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #8B0000;
+}
+
+.wheel-center-sub {
+  font-size: 24rpx;
+  color: #c0392b;
+  font-weight: bold;
+}
+
+/* 指针 */
+.pointer {
+  position: absolute;
+  top: -20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 60rpx;
+  color: #FFD700;
+  text-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+
+/* 结果展示 */
+.result-section {
+  width: 100%;
+  margin: 30rpx 0;
+}
+
+.result-card {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));
+  border: 2rpx solid rgba(255, 215, 0, 0.5);
+  border-radius: 24rpx;
+  padding: 50rpx 40rpx;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.result-title {
+  display: block;
+  font-size: 40rpx;
+  color: #FFD700;
+  margin-bottom: 20rpx;
+}
+
+.result-amount {
+  display: block;
+  font-size: 100rpx;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 0 4rpx 20rpx rgba(255, 215, 0, 0.7);
+  line-height: 1;
+  margin-bottom: 20rpx;
+}
+
+.result-desc {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 20rpx;
+}
+
+.result-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.detail-label {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.detail-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #FFD700;
+}
+
+/* 操作按钮 */
+.action-section {
+  width: 100%;
+  margin: 30rpx 0 0;
+}
+
+.start-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #8B0000;
+  font-size: 38rpx;
+  font-weight: bold;
+  border-radius: 60rpx;
+  padding: 32rpx;
+  border: none;
+  box-shadow: 0 8rpx 30rpx rgba(255, 165, 0, 0.6);
+  letter-spacing: 4rpx;
+}
+
+.back-btn {
+  width: 100%;
+  background: transparent;
+  color: #FFD700;
+  font-size: 34rpx;
+  border-radius: 60rpx;
+  padding: 28rpx;
+  border: 2rpx solid rgba(255, 215, 0, 0.5);
+}
+
+.btn-hidden {
+  opacity: 0;
+}
+
+/* 提示 */
+.tips {
+  margin-top: 30rpx;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.4);
+}

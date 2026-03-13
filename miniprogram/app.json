@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/lottery/lottery"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#8B0000",
+    "navigationBarTitleText": "西安交大130周年校庆",
+    "navigationBarTextStyle": "white"
+  },
+  "cloud": true,
+  "sitemapLocation": "sitemap.json",
+  "requiredPrivateInfos": [
+    "getPhoneNumber"
+  ]
+}

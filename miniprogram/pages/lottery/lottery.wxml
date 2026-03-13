@@ -1,0 +1,71 @@
+<!-- pages/lottery/lottery.wxml -->
+<!-- 抽奖页（REQ-009, REQ-011） -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="lottery-header">
+    <text class="header-title">校庆专属抽奖</text>
+    <text class="header-subtitle">西安交通大学130周年</text>
+  </view>
+
+  <!-- 抽奖转盘区域（CSS动画） -->
+  <view class="wheel-container">
+    <view class="wheel-outer">
+      <view class="wheel {{spinning ? 'wheel-spin' : ''}}">
+        <!-- 奖项扇形区（装饰性） -->
+        <view class="wheel-sector s1"><text>¥500</text></view>
+        <view class="wheel-sector s2"><text>¥200</text></view>
+        <view class="wheel-sector s3"><text>¥100</text></view>
+        <view class="wheel-sector s4"><text>¥50</text></view>
+        <view class="wheel-sector s5"><text>¥30</text></view>
+        <view class="wheel-sector s6"><text>¥10</text></view>
+        <!-- 中心圆 -->
+        <view class="wheel-center">
+          <text class="wheel-center-text">交大</text>
+          <text class="wheel-center-sub">130</text>
+        </view>
+      </view>
+      <!-- 指针 -->
+      <view class="pointer">▼</view>
+    </view>
+  </view>
+
+  <!-- 抽奖结果展示 -->
+  <view class="result-section" wx:if="{{showResult}}">
+    <view class="result-card">
+      <text class="result-title">🎉 恭喜您！</text>
+      <text class="result-amount">+¥{{lotteryAmount}}</text>
+      <text class="result-desc">礼券已添加至您的VIP卡</text>
+      <view class="result-detail">
+        <text class="detail-label">当前礼券余额：</text>
+        <text class="detail-value">¥{{newCouponAmount}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮区 -->
+  <view class="action-section">
+    <!-- 抽奖按钮（未抽奖时显示） -->
+    <button
+      class="start-btn {{(spinning || showResult) ? 'btn-hidden' : ''}}"
+      bindtap="onStartLottery"
+      disabled="{{spinning}}"
+      wx:if="{{!showResult}}"
+    >
+      开始抽奖
+    </button>
+
+    <!-- 返回首页按钮（抽奖完成后显示） -->
+    <button
+      class="back-btn"
+      bindtap="onGoHome"
+      wx:if="{{showResult}}"
+    >
+      返回首页
+    </button>
+  </view>
+
+  <!-- 提示文字 -->
+  <view class="tips">
+    <text class="tip-text">每位用户仅可参与一次抽奖</text>
+  </view>
+</view>

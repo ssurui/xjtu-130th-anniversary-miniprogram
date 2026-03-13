@@ -1,0 +1,34 @@
+{
+  "description": "西安交通大学130周年校庆小程序",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "setting": {
+    "bundle": false,
+    "userConfidentialInfo": false,
+    "coverView": true,
+    "es6": true,
+    "postcss": true,
+    "minifiedCode": false,
+    "enhance": true,
+    "showShadowRootInWxmlPanel": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": false,
+    "disableUseStrict": false,
+    "minifyJS": false,
+    "uglifyFileName": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.3.4",
+  "appid": "your-appid-here",
+  "projectname": "miniprogram2",
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "srcMiniprogramRoot": "miniprogram/"
+}

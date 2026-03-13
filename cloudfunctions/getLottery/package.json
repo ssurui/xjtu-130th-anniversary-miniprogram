@@ -1,0 +1,9 @@
+{
+  "name": "getLottery",
+  "version": "1.0.0",
+  "description": "抽奖云函数：原子操作防重复，随机生成礼券金额",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
