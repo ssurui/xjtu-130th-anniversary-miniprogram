@@ -10,25 +10,40 @@
     "coverView": true,
     "es6": true,
     "postcss": true,
-    "minifiedCode": false,
+    "minifiedCode": true,
     "enhance": true,
     "showShadowRootInWxmlPanel": true,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "minifyWXML": false,
+    "minifyWXML": true,
     "disableUseStrict": false,
-    "minifyJS": false,
-    "uglifyFileName": false
+    "minifyJS": true,
+    "uglifyFileName": false,
+    "compileWorklet": false,
+    "minified": true,
+    "uploadWithSourceMap": true,
+    "localPlugins": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "compileType": "miniprogram",
   "libVersion": "3.3.4",
-  "appid": "your-appid-here",
+  "appid": "wxfc5b68ea4cbe9edd",
   "projectname": "miniprogram2",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "srcMiniprogramRoot": "miniprogram/"
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "simulatorPluginLibVersion": {}
 }
