@@ -12,28 +12,53 @@ const _ = db.command;
 const usersCollection = db.collection('users');
 
 /**
- * 随机生成抽奖金额
- * 奖励分级：
- * - 60% 概率：10~50元
- * - 30% 概率：51~200元
- * - 9%  概率：201~499元
- * - 1%  概率：500元
+ * 生成VIP卡号：XJTU-XXXXXX（6位随机数字）
+ */
+function generateCardNumber() {
+  const num = Math.floor(Math.random() * 900000) + 100000;
+  return `XJTU-${num}`;
+}
+
+/**
+ * 为跳过登录的用户自动创建访客记录
+ */
+async function createGuestUser(openid, giftType) {
+  const cardNumber = generateCardNumber();
+  const now = db.serverDate();
+  await usersCollection.add({
+    data: {
+      _openid: openid,
+      phoneNumber: '',
+      cardNumber,
+      couponAmount: 10,
+      giftType: giftType || 'gift1',
+      hasLottery: false,
+      lotteryAmount: 0,
+      lotteryTime: null,
+      createTime: now,
+      updateTime: now
+    }
+  });
+  return { cardNumber, couponAmount: 10 };
+}
+
+/**
+ * 随机生成抽奖金额（对应转盘6个固定扇区）
+ * - 60% 概率：¥10
+ * - 15% 概率：¥30
+ * - 10% 概率：¥50
+ * -  8% 概率：¥100
+ * -  5% 概率：¥200
+ * -  2% 概率：¥500
  */
 function generateLotteryAmount() {
   const rand = Math.random() * 100;
-  if (rand < 60) {
-    // 60% 概率：10~50元
-    return Math.floor(Math.random() * 41) + 10;
-  } else if (rand < 90) {
-    // 30% 概率：51~200元
-    return Math.floor(Math.random() * 150) + 51;
-  } else if (rand < 99) {
-    // 9% 概率：201~499元
-    return Math.floor(Math.random() * 299) + 201;
-  } else {
-    // 1% 概率：500元
-    return 500;
-  }
+  if (rand < 60) return 10;
+  if (rand < 75) return 30;
+  if (rand < 85) return 50;
+  if (rand < 93) return 100;
+  if (rand < 98) return 200;
+  return 500;
 }
 
 /**
@@ -49,13 +74,15 @@ exports.main = async (event, context) => {
     return { code: -1, message: '无法获取用户标识' };
   }
 
-  // 先查询用户是否存在
+  // 先查询用户是否存在且已授权手机号
   const userQuery = await usersCollection.where({ _openid: openid }).get();
   if (!userQuery.data || userQuery.data.length === 0) {
-    return { code: -1, message: '用户不存在，请先登录' };
+    return { code: -1, message: '请先授权登录后参与抽奖' };
   }
-
   const user = userQuery.data[0];
+  if (!user.phoneNumber) {
+    return { code: -1, message: '请先授权手机号后参与抽奖' };
+  }
 
   // 检查是否已抽过奖
   if (user.hasLottery) {

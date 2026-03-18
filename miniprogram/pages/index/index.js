@@ -36,16 +36,17 @@ Page({
     }).then(res => {
       const result = res.result;
       if (result.code === 0) {
-        // 用户已登录，更新显示数据
+        // 有手机号才视为已登录（授权过）
+        const isLoggedIn = !!result.data.phoneNumber;
         this.setData({
           cardNumber: result.data.cardNumber,
           couponAmount: result.data.couponAmount,
           hasLottery: result.data.hasLottery,
-          isLoggedIn: true,
+          isLoggedIn,
           loading: false
         });
         // 更新全局登录状态
-        app.globalData.isLoggedIn = true;
+        app.globalData.isLoggedIn = isLoggedIn;
         app.globalData.userInfo = result.data;
       } else {
         // 用户未登录（code === 1）

@@ -13,7 +13,7 @@ App({
     } else {
       wx.cloud.init({
         // 替换为您的云开发环境ID
-        env: 'your-cloud-env-id',
+        env: 'cloud1-4gctjk9fd709846f',
         traceUser: true
       });
     }
@@ -28,5 +28,19 @@ App({
         this.globalData.giftType = scene;
       }
     }
+
+    // 进入小程序即记录 openid，创建用户记录（无手机号的访客记录）
+    wx.cloud.callFunction({
+      name: 'login',
+      data: { giftType: this.globalData.giftType }
+    }).then(res => {
+      if (res.result && res.result.code === 0) {
+        this.globalData.userInfo = res.result.data;
+        // 有手机号才视为已登录
+        this.globalData.isLoggedIn = !!res.result.data.phoneNumber;
+      }
+    }).catch(err => {
+      console.error('初始化用户记录失败：', err);
+    });
   }
 });

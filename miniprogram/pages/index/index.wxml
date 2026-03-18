@@ -50,7 +50,7 @@
         mode="aspectFit"
       />
       <view class="gift-info">
-        <text class="gift-name">{{giftType === 'gift1' ? '校庆纪念品一：文化衫' : '校庆纪念品二：帆布包'}}</text>
+        <text class="gift-name">{{giftType === 'gift1' ? '校庆纪念品一：珍珠项链' : '校庆纪念品二：珍珠吊坠'}}</text>
         <text class="gift-desc">西安交通大学130周年校庆专属纪念品</text>
       </view>
     </view>

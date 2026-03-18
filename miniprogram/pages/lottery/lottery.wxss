@@ -62,15 +62,6 @@
   border: 8rpx solid #FFD700;
 }
 
-/* 转盘旋转动画 */
-.wheel-spin {
-  animation: wheelSpin 3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-
-@keyframes wheelSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(1440deg); }
-}
 
 /* 扇形区域标签 */
 .wheel-sector {

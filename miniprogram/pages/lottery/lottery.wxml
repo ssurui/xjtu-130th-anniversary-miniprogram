@@ -10,7 +10,7 @@
   <!-- 抽奖转盘区域（CSS动画） -->
   <view class="wheel-container">
     <view class="wheel-outer">
-      <view class="wheel {{spinning ? 'wheel-spin' : ''}}">
+      <view class="wheel" animation="{{wheelAnimation}}">
         <!-- 奖项扇形区（装饰性） -->
         <view class="wheel-sector s1"><text>¥500</text></view>
         <view class="wheel-sector s2"><text>¥200</text></view>

@@ -42,7 +42,7 @@
       bindtap="onSkip"
       disabled="{{loading}}"
     >
-      暂不参与
+      跳过（不参与抽奖）
     </button>
 
     <text class="privacy-tip">授权后将获取您的手机号，用于生成专属VIP卡</text>

@@ -51,23 +51,42 @@ exports.main = async (event, context) => {
   // 解密手机号（需要phoneCode）
   let phoneNumber = '';
   if (phoneCode) {
+    console.log('收到 phoneCode，开始解密手机号');
     try {
       const phoneResult = await cloud.openapi.phonenumber.getPhoneNumber({
         code: phoneCode
       });
+      console.log('getPhoneNumber 结果：', JSON.stringify(phoneResult));
       phoneNumber = phoneResult.phoneInfo && phoneResult.phoneInfo.phoneNumber || '';
+      console.log('解密得到手机号：', phoneNumber ? '成功' : '为空');
     } catch (err) {
-      console.error('手机号解密失败：', err);
-      return { code: -1, message: '手机号获取失败，请重试' };
+      console.error('手机号解密失败，错误码：', err.errCode, '错误信息：', err.errMsg, '完整错误：', JSON.stringify(err));
+      return { code: -1, message: `手机号获取失败(${err.errCode || err.message})` };
     }
+  } else {
+    console.log('无 phoneCode，创建/查找访客记录');
   }
 
   // 查找现有用户记录
   const existingUser = await usersCollection.where({ _openid: openid }).get();
 
   if (existingUser.data && existingUser.data.length > 0) {
-    // 用户已存在，更新手机号（如果有新的）
-    const user = existingUser.data[0];
+    // 去重：多条记录时保留最完整的一条（优先已抽奖、有手机号、礼券最多）
+    let user = existingUser.data[0];
+    if (existingUser.data.length > 1) {
+      user = existingUser.data.reduce((best, cur) => {
+        if (cur.hasLottery && !best.hasLottery) return cur;
+        if (!cur.hasLottery && best.hasLottery) return best;
+        if (cur.phoneNumber && !best.phoneNumber) return cur;
+        if (cur.couponAmount > best.couponAmount) return cur;
+        return best;
+      });
+      // 删除多余记录
+      const deleteIds = existingUser.data.filter(r => r._id !== user._id).map(r => r._id);
+      await Promise.all(deleteIds.map(id => usersCollection.doc(id).remove()));
+    }
+
+    // 更新手机号（如果有新的）
     if (phoneNumber && user.phoneNumber !== phoneNumber) {
       await usersCollection.doc(user._id).update({
         data: {
